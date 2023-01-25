@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Principal</title>
+    {% load static %}
+    <link rel="icon" href="{% static 'img pastel/icon.png' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/estilos.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/estilos2.css' %}">
+    <link rel="stylesheet" type="text/css" href="valida.js">
+    <script>
+    function Saludo(){
+      alert("Hola, Bienvenid@ a Groun Zero, La pasteleria más sabrosa!");
+  }
+  function MostrarFecha(){
+            document.getElementById('demo').innerHTML = Date();
+        }
+</script>
+</head>
+<body>
+  <nav class="navbar navbar-expand-sm navbar-light bg-light ">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#opciones">
+      <span class="navbar-toggler-icon"></span>
+    </button>   
+    <a class="navbar-brand" href="{% url 'home' %}">
+      <img src="{% static 'img pastel/icon.png' %}"width="60" height="60">
+    </a>    
+    <div class="collapse navbar-collapse" id="opciones">   
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'home' %}">Principal</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'somos' %}">Quienes Somos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'galeria' %}">Tipo de Pasteles</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'api' %}">Podria Interesarte</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" onclick="Saludo()">Saludar</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'reloj' %}">Nuestro reloj</a>
+        </li>
+        {% if user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'mostrar' %}">Mostrar pasteles</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'mostrar1' %}">Mostrar Clientes</a>
+        </li>
+        <li class="nav-item">
+                        <a class="nav-link" href="#">Bienvenid@ {{user.username}}</a>
+        </li>
+        {% endif %}
+
+        {% if user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link" style="color: blueviolet;"  href="{% url 'logout' %}">cerrar sesión</a>
+        </li>
+        {% else %}
+        <li class="nav-item">
+          <a class="nav-link" style="color: blueviolet;"  href="{% url 'login' %}">iniciar sesión</a>
+        </li>
+        {% endif %}
+      </ul>
+    </div>
+  </nav>
+<br>
+    <!--carrusel--> 
+    <div class="container">
+      <div id="carousel1" class="carousel slide" data-ride="carousel">
+          <ol class="carousel-indicators">
+              <li data-target="#carousel1" data-slide-to="0" class="active"></li>
+              <li data-target="#carousel1" data-slide-to="1"></li>
+              <li data-target="#carousel1" data-slide-to="2"></li>
+              <li data-target="#carousel1" data-slide-to="3"></li>
+              <li data-target="#carousel1" data-slide-to="4"></li>
+          </ol>
+          <!--definimos las imagenes dentro del carrusel-->
+          <div class="carousel-inner">
+              <div class="carousel-item active" data-bs-interval="1000">
+                  <img class="d-block w-100 " src="{% static 'img pastel/arandanos.jpg' %}">
+                  <div class="carousel-caption">
+                  </div>
+              </div>
+
+              <div class="carousel-item" data-bs-interval="1000">
+                  <img class="d-block w-100" src="{% static 'img pastel/chocolate.jpg' %}">
+                  <div class="carousel-caption">
+                  </div>
+              </div>
+
+              <div class="carousel-item" data-bs-interval="1000">
+                  <img class="d-block w-100" src="{% static 'img pastel/chocolate nueces.jpg' %}">
+                  <div class="carousel-caption">
+                  </div>
+              </div>
+
+              <div class="carousel-item" data-bs-interval="1000">
+                  <img class="d-block w-100" src="{% static 'img pastel/pie.jpg' %}">
+                  <div class="carousel-caption">
+                  </div>
+              </div>
+
+              <div class="carousel-item" data-bs-interval="1000">
+                  <img class="d-block w-100" src="{% static 'img pastel/varios.jpg' %}">
+                  <div class="carousel-caption">
+                  </div>
+              </div>
+          </div>
+          <!--codificamos el desplazamiento de izq a derecha-->
+          <a class="carousel-control-prev" href="#carousel1" data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+          </a>
+
+          <a class="carousel-control-next" href="#carousel1" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+          </a>
+          <hr>
+      </div>
+    </div>
+    
+    <main class="container">
+      <section class="row mt-5">
+        <div class="col-md-12 mt-5 mt-md-0">
+          <h4 style="color: blueviolet;" class=" text-center mt-3 mb-3">
+            ¡Bienvenidos!</h4>
+          <p style="color: blueviolet;" class="text-center">Aquí podrás encontrar nuestra exquisita variedad de pasteles que tenemos para ti
+            Cada uno de nuestros pasteles están hechos con dedicación y cariño por excelentes profesionales 
+            ¿Qué esperas para venir a probarlos?
+             ¡Te esperamos ansiosos!</p>
+          
+        </div>
+      </section>
+    </main>
+
+    <div class="container mt-5">
+      <div class="row center">
+
+          <div class="col-md">
+              <div class="card text-center">
+                  <img class="card-img-top mx-auto" src="{% static 'img pastel/cafecito.jpeg' %}">
+                  <div class="card-body">
+                      <h4 class="card-title">Pastel de cumpleaños</h4>
+                      <p class="card-text">Disponible hasta: 20/09/2023 <br><i class="fa fa-eye"></i> 5.354 - <i
+                              class="fa fa-heart"></i> 1.845</p>
+                      <a href="#" class="btn btn-primary col-12">Visitar</a>
+                  </div>
+              </div>
+          </div>
+
+          <div class="col-md">
+              <div class="card text-center">
+                  <img class="card-img-top mx-auto"  src="{% static 'img pastel/boda.jpg' %}">
+                  <div class="card-body">
+                      <h4 class="card-title">Pastel de boda</h4>
+                      <p class="card-text">Disponible hasta: 19/09/2023 <br><i class="fa fa-eye"></i> 6.117 - <i
+                              class="fa fa-heart"></i> 918</p>
+                      <a href="#" class="btn btn-primary col-12">Visitar</a>
+                  </div>
+              </div>
+          </div>
+
+          <div class="col-md">
+              <div class="card text-center">
+                  <img class="card-img-top mx-auto" src="{% static 'img pastel/moradito.jpg' %}">
+                  <div class="card-body">
+                      <h4 class="card-title">Pastel de graduación</h4>
+                      <p class="card-text">Disponible hasta: 21/09/2023 <br><i class="fa fa-eye"></i> 3.970 - <i
+                              class="fa fa-heart"></i> 1.006</p>
+                      <a href="#" class="btn btn-primary col-12">Visitar</a>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <hr>
+  </div>
+  
+  <main class="container">
+    <section>
+      <div class="row">
+        <div class="col-lg-6">
+          <h1 onmouseover="style.color = 'purple'" onmouseout="style.color='black'" class="mt-5 text-center">
+            Visitanos</h1>
+          <p onmouseover="style.color = 'purple'" onmouseout="style.color='black'">Estamos ubicados en Av. Segunda Transversal 1470, Maipú, Región Metropolitana</p>
+
+        </div>
+
+        <div class="col-lg-6">
+          <div class="embed-responsive embed-responsive-16by9 mt-3">
+            <iframe class="embed-responsive-item" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d26612.26163653619!2d-70.780498084375!3d-33.513533!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9662dccf3b048e29%3A0xf6fcf53b2fcca0aa!2sPasteleria%20La%20Victoria!5e0!3m2!1ses-419!2scl!4v1674676516852!5m2!1ses-419!2scl" allowfullscreen>
+              
+            </iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+    
+      <br>
+      
+      <footer class="pie-pagina bg-light container-fluid"> 
+        <div class="grupo-1">
+          <div class="box">
+            <figure>
+              <a href="#">
+                <img src="{% static 'img pastel/icon.png' %}" width="200" alt="Ground Zero">
+              </a>
+            </figure>
+          </div>
+          <div class="box">
+            <h2>Sobre nosotros</h2>
+            <h6 class="pepe">Somos un grupo de amigos que comenzó a realizar publicidades de pymes, todo esto para ayudar a personas sin fines de lucro
+            </h6>
+          </div>
+          <div class="box">
+            <h2>SIGUENOS</h2>
+            <div class="red-social">
+              <a href="#" class="fa fa-facebook color "></a>
+              <a href="#" class="fa fa-instagram color "></a>
+              <a href="#" class="fa fa-twitter color "></a>
+              <a href="#"></a>
+            </div>
+          </div>
+        </div>
+        <div class="grupo-2 text-center">
+          <small>&copy; 2022 <b>Grupo publicitario de la pyme Ground Zero Matias Tiznado-Ignacio Morales</b></small>
+        </div>
+      </footer> 
+    </body>
+    </div>
+    </div>
+    
+      {% load static %}
+      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+      <script src="https://kit.fontawesome.com/eb496ab1a0.js" crossorigin="anonymous"></script>
+</body>
+</html>

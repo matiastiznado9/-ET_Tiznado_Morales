@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href='https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons' rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/@mdi/font@5.x/css/materialdesignicons.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+  {% load static %}
+  <link rel="icon" href="{% static 'img pastel/icon.png' %}" />
+  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
+  <link rel="stylesheet" href="{% static 'css/estilos2.css' %}">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+  <title>Gatitos random!</title>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+  <body>
+    <nav class="navbar navbar-expand-sm navbar-light bg-light ">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#opciones">
+        <span class="navbar-toggler-icon"></span>
+      </button>   
+      <a class="navbar-brand" href="{% url 'home' %}">
+        <img src="{% static 'img pastel/icon.png' %}"width="60" height="60">
+      </a>    
+      <div class="collapse navbar-collapse" id="opciones">   
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'home' %}">Principal</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'somos' %}">Quienes Somos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'galeria' %}">Tipo de Pasteles</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'api' %}">Podria Interesarte</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" onclick="Saludo()">Saludar</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'reloj' %}">Nuestro reloj</a>
+          </li>
+          {% if user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'mostrar' %}">Mostrar pasteles</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'mostrar1' %}">Mostrar Clientes</a>
+          </li>
+          <li class="nav-item">
+                          <a class="nav-link" href="#">Bienvenid@ {{user.username}}</a>
+          </li>
+          {% endif %}
+  
+          {% if user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link" style="color: blueviolet;"  href="{% url 'logout' %}">cerrar sesión</a>
+          </li>
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link" style="color: blueviolet;"  href="{% url 'login' %}">iniciar sesión</a>
+          </li>
+          {% endif %}
+        </ul>
+      </div>
+    </nav>
+  </nav>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+  <div id="app">
+    <v-app>
+      <v-content>
+        <v-container>
+          <h1>Gatitos Random!</h1>
+            <v-layout align-center justify-center>
+                <v-btn color="blue" dark large @click="loadNextImage" >
+                    Another &nbsp; <v-icon>refresh</v-icon>
+                </v-btn>
+            </v-layout>
+
+            <v-layout row wrap class="mt-5">
+                <v-flex xs12 >
+                <v-card flat tile class="d-flex">
+                    <v-img :src="image.url" contain>
+                    </v-img>
+                </v-card>
+                </v-flex>
+            </v-layout>
+
+        </v-container>
+      </v-content>
+    </v-app>
+  </div>
+ 
+  <script>
+    new Vue({ 
+        el: '#app',
+        vuetify: new Vuetify(),
+        data: {
+            image: { url: ""}
+        },
+        created(){
+            this.loadNextImage();
+        } ,
+        methods:{
+            async loadNextImage()
+            {
+                try{
+                    axios.defaults.headers.common['x-api-key'] = "DEMO-API-KEY" // Replace this with your API Key
+
+                    let response = await axios.get('https://api.thecatapi.com/v1/images/search', { params: { limit:1, size:"full" } } ) // Ask for 1 Image, at full resolution
+                    
+                    this.image = response.data[0] // the response is an Array, so just use the first item as the Image
+
+                    console.log("-- Image from TheCatAPI.com")
+                    console.log("id:", this.image.id)
+                    console.log("url:", this.image.url)
+
+                }catch(err){
+                    console.log(err)
+                }
+            }
+        }
+    })
+  </script>
+  <footer class="pie-pagina bg-light container-fluid"> 
+    <div class="grupo-1">
+      <div class="box">
+        <figure>
+          <a href="#">
+            <img src="{% static 'img pastel/icon.png' %}" width="200" alt="Ground Zero">
+          </a>
+        </figure>
+      </div>
+      <div class="box">
+        <h2>Sobre nosotros</h2>
+        <h6 class="pepe">Somos un grupo de amigos que comenzó a realizar publicidades de pymes, todo esto para ayudar a personas sin fines de lucro
+        </h6>
+      </div>
+      <div class="box">
+        <h2>SIGUENOS</h2>
+        <div class="red-social">
+          <a href="#" class="fa fa-facebook color "></a>
+          <a href="#" class="fa fa-instagram color "></a>
+          <a href="#" class="fa fa-twitter color "></a>
+          <a href="#"></a>
+        </div>
+      </div>
+    </div>
+    <div class="grupo-2">
+      <small>&copy; 2022 <b>Grupo publicitario de la pyme Ground Zero Matias Tiznado-Ignacio Morales</b></small>
+    </div>
+  </footer> 
+</body>
+</div>
+</div>
+
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/eb496ab1a0.js" crossorigin="anonymous"></script>
+  <script src="{% static 'js/valida.js' %}"></script>
+  
+</body>
+
+</html>

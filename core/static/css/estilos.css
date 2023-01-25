@@ -1,0 +1,40 @@
+.color{
+    background-color: blueviolet;
+
+}
+
+.clase{
+    text-align: right;
+}
+
+.foto{
+    width: 50%;
+    height: 100%;
+    
+}
+
+.carousel-item {
+    
+    background: no-repeat center center scroll;
+}
+
+.pie-pagina .grupo-1{
+    width: 90%;
+    grid-template-columns: repeat(1, 1fr);
+    grid-gap:30px ;
+    padding: 35px 0px;
+}
+
+.carousel1{
+    height: 50px;
+    width: 70px;
+    min-height: 250px;
+}
+
+.video{
+    text-align: center;
+}
+
+
+
+

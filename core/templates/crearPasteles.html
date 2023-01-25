@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear</title>
+    {% load static %}
+    <link rel="icon" href="{% static 'img pastel/icon.png' %}" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js"></script>
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/estilos.css' %}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/estilos2.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <style>
+        body{
+            font-family: Arial;
+        }
+
+        .error-control{
+            border: 1px solid red;
+        }
+
+        label.error{
+            color: red;
+            width: 200px;
+            font-size: 0.8em;
+            margin-top: -5px;
+            margin-bottom: 10px;
+        }
+
+
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+    <script>
+        $(function(){
+
+            $("#formulario").validate({
+                rules:{
+                    codigo: "required",
+                    relleno: "required",
+                    categoria: "required"
+                },
+                messages: 
+                {
+                    codigo:{
+                        required: 'Ingrese un codigo',
+                    },
+
+
+                    relleno: {
+                        required: 'Ingrese un relleno',
+                    },
+
+                    categoria: {
+                        required: 'Seleccione una categoria',
+                    },
+                }
+            });
+         });
+
+
+
+
+    </script>
+
+</head>
+<body>
+  <body>
+    <nav class="navbar navbar-expand-sm navbar-light bg-light ">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#opciones">
+        <span class="navbar-toggler-icon"></span>
+      </button>   
+      <a class="navbar-brand" href="{% url 'home' %}">
+        <img src="{% static 'img pastel/icon.png' %}"width="60" height="60">
+      </a>    
+      <div class="collapse navbar-collapse" id="opciones">   
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'home' %}">Principal</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'somos' %}">Quienes Somos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'galeria' %}">Tipo de Pasteles</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'api' %}">Podria Interesarte</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" onclick="Saludo()">Saludar</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'reloj' %}">Nuestro reloj</a>
+          </li>
+          {% if user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'mostrar' %}">Mostrar pasteles</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'mostrar1' %}">Mostrar Clientes</a>
+          </li>
+          <li class="nav-item">
+                          <a class="nav-link" href="#">Bienvenid@ {{user.username}}</a>
+          </li>
+          {% endif %}
+  
+          {% if user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link" style="color: blueviolet;"  href="{% url 'logout' %}">cerrar sesión</a>
+          </li>
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link" style="color: blueviolet;"  href="{% url 'login' %}">iniciar sesión</a>
+          </li>
+          {% endif %}
+        </ul>
+      </div>
+    </nav>
+
+
+
+
+    <div class="container mt-5">
+        <div class="row">
+            <h2>Creando Pasteles</h2>
+        </div>
+
+        <div class="row">
+            <form method="POST" action="#" id="formulario" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <div class="form-group">
+                    {{ pastelform.codigo.label}}
+                    {{ pastelform.codigo}}
+                </div>
+
+                <div class="form-group">
+                    {{ pastelform.relleno.label}}
+                    {{ pastelform.relleno}}
+                </div>
+
+                <div class="form-group">
+                    {{ pastelform.categoria.label}}
+                    {{ pastelform.categoria}}
+                </div>
+
+                <div class="form-group">
+                  {{ pastelform.imagen.label}}
+                  {{ pastelform.imagen}}
+                </div>
+
+                <br><br>
+                <div class="row">
+                    <div class="col-md">
+                        <input type="submit" class="btn btn-primary" value="Enviar">
+                        <a href="{% url 'home' %}" class="btn btn-success">Home</a>
+                    </div>
+                </div>
+
+
+
+            </form>
+        </div>
+    </div>
+
+    <footer class="pie-pagina bg-light container-fluid"> 
+        <div class="grupo-1">
+          <div class="box">
+            <figure>
+              <a href="#">
+                <img src="{% static 'img pastel/icon.png' %}" width="200" alt="Ground Zero">
+              </a>
+            </figure>
+          </div>
+          <div class="box">
+            <h2>Sobre nosotros</h2>
+            <h6 class="pepe">Somos un grupo de amigos que comenzó a realizar publicidades de pymes, todo esto para ayudar a personas sin fines de lucro
+            </h6>
+          </div>
+          <div class="box">
+            <h2>SIGUENOS</h2>
+            <div class="red-social">
+              <a href="#" class="fa fa-facebook color "></a>
+              <a href="#" class="fa fa-instagram color "></a>
+              <a href="#" class="fa fa-twitter color "></a>
+              <a href="#"></a>
+            </div>
+          </div>
+        </div>
+        <div class="grupo-2 text-center">
+          <small>&copy; 2022 <b>Grupo publicitario de la pyme Ground Zero Matias Tiznado-Ignacio Morales</b></small>
+        </div>
+      </footer> 
+
+
+
+
+    
+</body>
+
+    <script>window.jQuery || document.write('<script src="../assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'js/validacion.js' %}"></script>
+</html>

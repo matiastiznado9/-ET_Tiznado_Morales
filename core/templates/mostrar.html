@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="icon" href="{% static 'img pastel/icon.png' %}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/estilos.css' %}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/estilos2.css' %}">
+
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+
+
+
+    <title>Mostrar</title>
+</head>
+<body>
+
+  <body>
+    <nav class="navbar navbar-expand-sm navbar-light bg-light ">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#opciones">
+        <span class="navbar-toggler-icon"></span>
+      </button>   
+      <a class="navbar-brand" href="{% url 'home' %}">
+        <img src="{% static 'img pastel/icon.png' %}"width="60" height="60">
+      </a>    
+      <div class="collapse navbar-collapse" id="opciones">   
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'home' %}">Principal</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'somos' %}">Quienes Somos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'galeria' %}">Tipo de Pasteles</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'api' %}">Podria Interesarte</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" onclick="Saludo()">Saludar</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'reloj' %}">Nuestro reloj</a>
+          </li>
+          {% if user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'mostrar' %}">Mostrar pasteles</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'mostrar1' %}">Mostrar Clientes</a>
+          </li>
+          <li class="nav-item">
+                          <a class="nav-link" href="#">Bienvenid@ {{user.username}}</a>
+          </li>
+          {% endif %}
+  
+          {% if user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link" style="color: blueviolet;"  href="{% url 'logout' %}">cerrar sesión</a>
+          </li>
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link" style="color: blueviolet;"  href="{% url 'login' %}">iniciar sesión</a>
+          </li>
+          {% endif %}
+        </ul>
+      </div>
+    </nav>
+
+    <div class="container mt-5">
+        <h2>Lista de Pasteles</h2>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Codigo</th>
+                    <th>Relleno</th>
+                    <th>Modificar </th>
+                    <th>Eliminar</th>
+                    <th> Imagen</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for ve in tortas %}
+                    <tr>
+                        <td>{{ve.codigo}}</td>
+                        <td>{{ve.relleno}}</td>
+                        <td><a href="{% url 'modificar' ve.codigo %}" class="btn btn-dark">Modificar</a></td>
+                        <td><a href="{% url 'eliminar' ve.codigo %}" class="btn btn-danger">Eliminar</a></td>
+                        {% if ve.imagen %}
+                            <td scope="row">
+                                <img src="{{ ve.imagen.url}}" style="height:50px; width:50px;">    
+                            </td>
+                        {% endif %}
+                    </tr>
+                {% endfor%}
+            </tbody>
+        </table>
+
+        <a href="{% url 'crear' %}" class="btn btn-success" target="_blank">Crear Pasteles</a>
+
+    </div>
+
+    <footer class="pie-pagina bg-light container-fluid"> 
+      <div class="grupo-1">
+        <div class="box">
+          <figure>
+            <a href="#">
+              <img src="{% static 'img pastel/icon.png' %}" width="200" alt="Ground Zero">
+            </a>
+          </figure>
+        </div>
+        <div class="box">
+          <h2>Sobre nosotros</h2>
+          <h6 class="pepe">Somos un grupo de amigos que comenzó a realizar publicidades de pymes, todo esto para ayudar a personas sin fines de lucro
+          </h6>
+        </div>
+        <div class="box">
+          <h2>SIGUENOS</h2>
+          <div class="red-social">
+            <a href="#" class="fa fa-facebook color "></a>
+            <a href="#" class="fa fa-instagram color "></a>
+            <a href="#" class="fa fa-twitter color "></a>
+            <a href="#"></a>
+          </div>
+        </div>
+      </div>
+      <div class="grupo-2 text-center">
+        <small>&copy; 2022 <b>Grupo publicitario de la pyme Ground Zero Matias Tiznado-Ignacio Morales</b></small>
+      </div>
+    </footer> 
+
+
+    
+
+    
+</body>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+<script>window.jQuery || document.write('<script src="../assets/js/vendor/jquery.slim.min.js"><\/script>')</script>
+<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'js/validacion.js' %}"></script>
+</html>

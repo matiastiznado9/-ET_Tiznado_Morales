@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/eb496ab1a0.js" crossorigin="anonymous"></script>
+    <script src=""></script>
+    {% load static %}
+    <link rel="icon" href="{% static 'img pastel/icon.png' %}" />
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/formulario3.css' %}">
+    <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
+    <link rel="stylesheet" href="{% static 'css/estilos2.css' %}">
+    <title>Formulario de registro</title>
+    <script src="{% static 'js/valida.js' %}"></script>
+    <script>
+        $(function(){
+            $("#mi-formulario").validate({
+                rules:{
+                    email: {
+                        required: true, 
+                        email:true,
+                        
+                    },
+                    
+                    name: {
+                        required: true, 
+                        minlength: 4
+                        
+                    },
+
+                    surname: {
+                        required: true, 
+                        minlength: 4
+                        
+                    },
+                    surname:"required",
+                    fono:"required",
+                    fecha:"required",
+                    password2:{
+                        required:true,
+                        equalTo:"#password"
+                    }
+                },//rules
+                messages:{
+
+                    name:{
+                      required: 'Ingrese un nombre',
+                      minlength: 'Carácteres insuficientes',
+                      formalphanumeric: true
+
+
+                    },
+
+                    surname:{
+                      required: 'Ingrese un apellido',
+                      minlength: 'Carácteres insuficientes'
+                      
+
+                    },
+                    email:{
+                        required: 'Ingrese su correo electrónico',
+                        email:'Formato de correo no válido'
+                    },
+                    password:{
+                        required:'Ingrese su contraseña',
+                        minlength: 'Carácteres insuficientes'
+                    },
+                    fono:{
+                        required:'Ingrese un número válido',
+                        minlength:'Cantidad de digitos insuficientes'
+                    },
+                    fecha:{
+                        required:'Seleccione una fecha válida',
+                        min:'Fecha no corresponde'
+                    }, 
+                    password2:{
+                        required:'Reingrese su contraseña',
+                        equalTo:'Las contraseñas ingresadas no coinciden',
+                        minlength:'Caracteres insuficientes'
+                    }
+
+                }
+
+            });
+
+
+        });
+
+    </script>
+
+    
+
+
+</head>
+<body>
+    <!--barra-->
+    <nav class="navbar navbar-expand-sm navbar-light bg-light ">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#opciones">
+        <span class="navbar-toggler-icon"></span>
+      </button>   
+      <a class="navbar-brand" href="{% url 'home' %}">
+        <img src="{% static 'img pastel/icon.png' %}"width="60" height="60">
+      </a>    
+      <div class="collapse navbar-collapse" id="opciones">   
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'home' %}">Principal</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'somos' %}">Quienes Somos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'galeria' %}">Tipo de Pasteles</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'formulario' %}">Registrarse</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'api' %}">Podria Interesarte</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" onclick="Saludo()">Saludar</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'reloj' %}">Nuestro reloj</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'mostrar' %}">Mostrar pasteles</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'mostrar1' %}">Mostrar Clientes</a>
+          </li>
+  
+        </ul>
+      </div>
+    </nav>
+    <div id="caja" class="container">
+        <form id="mi-formulario" action="#" method="post" class="row g-3 m-3">
+            
+            <div class="col-12">
+              <h1 onmouseover="style.color = 'purple'" onmouseout="style.color='black'">
+                Formulario de registro</h1>
+            </div>
+            <div class="col-6"> 
+              <label for="nombre" class="form-label">Nombre</label>
+              <input class="form-control" type="text" name="name" id="nombre" required placeholder="Ej: Ignacio">
+            </div>
+
+            <div class="col-6"> 
+              <label for="apellido" class="form-label">apellido</label>
+              <input class="form-control" type="text" name="surname" id="apellido" required placeholder="Ej: Pérez">
+            </div>
+
+            <div class="col-12">
+              <label for="correo">Correo Electrónico </label>
+              <input class="form-control" type="text" name="email" id="correo" required placeholder="nombre@dominio.cl">
+            </div>
+
+            <div class="col-12">
+              <label for="telefono">Teléfono: </label>
+              <input class="form-control" type="text" name="fono" id="telefono" minlength="9" required placeholder="Ej: 92876754">
+            </div>
+            
+            <div class="col-6 mt-1">
+              <label for="fecha">Fecha de Nacimiento</label>
+              <input class="form-control" type="date" name="fecha" id="fecha" min="1900-01-01" required>
+            </div>
+
+            <div class="col-6 mt-1">
+              <label for="sexo">Seleccione su sexo</label>
+              <select class="form-control" id="sexo">
+                <option>Hombre</option>
+                <option>Mujer</option>
+                
+
+            </select>
+            </div>
+
+            <div class="col-12">
+              <label for="password">Contraseña: </label>
+              <input class="form-control" type="password" id="password" name="password" minlength="6">
+            </div>
+
+            <div class="col-12">
+              <label for="password2">Reingrese su contraseña: </label>
+              <input class="form-control" type="password" id="password2" name="password2" minlength="6">
+            </div>
+
+            <div class="col-12 mt-3">
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input" value="" id="check1">
+                <label for="check1" class="form-check-label">Acepta los terminos y condiciones</label>
+              </div>
+            </div>
+
+            <div class="col-6 mt-3">
+              <button type="submit" class="btn btn-primary">Registrarse</button>
+              <button type="reset" class="btn btn-danger">Limpiar</button>
+            </div>
+            <hr>
+        </form>
+        <!--Escribenos-->
+        <hr>
+        <form id="mi-formulario" action="#" method="post" class="row g-3 m-3">
+          <div class="col-12">
+            <label for="comentarios">Escribenos</label>
+            <textarea rows="5" id="comentarios" class="form-control" onchange="CambiarMayusculas()"></textarea>
+
+          </div>
+
+          <div class="col-6 mt-3">
+            <a href="{% url 'home' %}" class="btn btn-success" >Enviar</a>
+            <button type="reset" class="btn btn-danger">Limpiar</button>
+          </div>
+      </form>
+        </form>
+    </div>
+
+    <footer class="pie-pagina bg-light container-fluid"> 
+      <div class="grupo-1">
+        <div class="box">
+          <figure>
+            <a href="#">
+              <img src="{% static 'img pastel/icon.png' %}" width="200" alt="Ground Zero">
+            </a>
+          </figure>
+        </div>
+        <div class="box">
+          <h2>Sobre nosotros</h2>
+          <h6 class="pepe">Somos un grupo de amigos que comenzó a realizar publicidades de pymes, todo esto para ayudar a personas sin fines de lucro
+          </h6>
+        </div>
+        <div class="box">
+          <h2>SIGUENOS</h2>
+          <div class="red-social">
+            <a href="#" class="fa fa-facebook color "></a>
+            <a href="#" class="fa fa-instagram color "></a>
+            <a href="#" class="fa fa-twitter color "></a>
+            <a href="#"></a>
+          </div>
+        </div>
+      </div>
+      <div class="grupo-2 text-center">
+        <small>&copy; 2022 <b>Grupo publicitario de la pyme Ground Zero Matias Tiznado-Ignacio Morales</b></small>
+      </div>
+    </footer> 
+</body>
+</html>

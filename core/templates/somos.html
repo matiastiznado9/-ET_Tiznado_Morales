@@ -1,0 +1,158 @@
+<!doctype html>
+<html>
+<head>
+  <title>Quienes somos</title> 
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  {% load static %}
+  <link rel="icon" href="{% static 'img pastel/icon.png' %}" />
+  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
+  <link rel="stylesheet" href="{% static 'css/estilos2.css' %}">
+  <script>
+        function Saludo(){
+      alert("Hola, Bienvenid@ a Groun Zero, La pasteleria más sabrosa!");
+  }
+  </script>
+</head>
+<body>
+  <body>
+    <nav class="navbar navbar-expand-sm navbar-light bg-light ">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#opciones">
+        <span class="navbar-toggler-icon"></span>
+      </button>   
+      <a class="navbar-brand" href="{% url 'home' %}">
+        <img src="{% static 'img pastel/icon.png' %}"width="60" height="60">
+      </a>    
+      <div class="collapse navbar-collapse" id="opciones">   
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'home' %}">Principal</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'somos' %}">Quienes Somos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'galeria' %}">Tipo de Pasteles</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'api' %}">Podria Interesarte</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" onclick="Saludo()">Saludar</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'reloj' %}">Nuestro reloj</a>
+          </li>
+          {% if user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'mostrar' %}">Mostrar pasteles</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'mostrar1' %}">Mostrar Clientes</a>
+          </li>
+          <li class="nav-item">
+                          <a class="nav-link" href="#">Bienvenid@ {{user.username}}</a>
+          </li>
+          {% endif %}
+  
+          {% if user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link" style="color: blueviolet;"  href="{% url 'logout' %}">cerrar sesión</a>
+          </li>
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link" style="color: blueviolet;"  href="{% url 'login' %}">iniciar sesión</a>
+          </li>
+          {% endif %}
+        </ul>
+      </div>
+    </nav>
+  
+  <main class="container">
+    <section class="row mt-5">
+      <div class="col-md-6">
+        <img src="{% static 'img pastel/Diplomado-reposteria-y-pasteleria.jpg' %}" alt="" class="img-fluid z-depth-1-half">
+      </div>
+
+      <div class="col-md-6 mt-5 mt-md-0">
+        <h4 onmouseover="style.color = 'purple'" onmouseout="style.color='black'">
+          Mision Del Grupo</h4>
+        <p onmouseover="style.color = 'purple'" onmouseout="style.color='black'">Ser una empresa líder en la industria de pastelería y repostería gourmet.</p>
+        
+        <h4 onmouseover="style.color = 'purple'" onmouseout="style.color='black'" class="mt-5">
+          Nuestra Vision</h4>
+        <p onmouseover="style.color = 'purple'" onmouseout="style.color='black'">Convertirnos en una marca líder y confiable para nuestros consumidores. Logrando ser el proveedor preferido de nuestros clientes por la calidad y variedad de nuestros productos y sobretodo el buen servicio. </p>
+        
+      </div>
+
+    </section>
+
+    <hr>
+
+    <section>
+      <h3 class="h3 text-center mt-5">Nuestro reportaje</h3>
+      <br>
+
+      <div class="row">
+        <div class="col-lg-6">
+          <h1 onmouseover="style.color = 'purple'" onmouseout="style.color='black'">
+            Visitanos</h1>
+          <p onmouseover="style.color = 'purple'" onmouseout="style.color='black'">Somos una pastelería creativa que llegó para endulzar tus celebraciones, con impresionantes tortas y cupcakes personalizados</p>
+
+        </div>
+
+        <div class="col-lg-6">
+          <div class="embed-responsive embed-responsive-16by9">
+            <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/qQ8kpGz9E0Y" allowfullscreen>
+              
+            </iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr>
+
+  </main>
+  <footer class="pie-pagina bg-light container-fluid"> 
+    <div class="grupo-1">
+      <div class="box">
+        <figure>
+          <a href="#">
+            <img src="{% static 'img pastel/icon.png' %}" width="200" alt="Ground Zero">
+          </a>
+        </figure>
+      </div>
+      <div class="box">
+        <h2>Sobre nosotros</h2>
+        <h6 class="pepe">Somos un grupo de amigos que comenzó a realizar publicidades de pymes, todo esto para ayudar a personas sin fines de lucro
+        </h6>
+      </div>
+      <div class="box">
+        <h2>SIGUENOS</h2>
+        <div class="red-social">
+          <a href="#" class="fa fa-facebook color "></a>
+          <a href="#" class="fa fa-instagram color "></a>
+          <a href="#" class="fa fa-twitter color "></a>
+          <a href="#"></a>
+        </div>
+      </div>
+    </div>
+    <div class="grupo-2 text-center">
+      <small>&copy; 2022 <b>Grupo publicitario de la pyme Ground Zero </b> -T13  </small>
+    </div>
+  </footer> 
+</body>
+</div>
+</div>
+
+  {% load static %}
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/eb496ab1a0.js" crossorigin="anonymous"></script>
+
+</body>
+</html>
+
